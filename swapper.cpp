@@ -112,3 +112,65 @@ void swapper::OTM(std::vector <int> requests, int memsize){
     }
 
 }
+
+void swapper::LRU(std::vector <int> requests, int memsize){
+
+    int memory[memsize] = {0};
+    int age[memsize];
+
+    for(int u = 0; u < memsize; u++){
+        age[u] = INT_MAX - memsize;
+    }
+
+
+    for(int i = 0; i < requests.size(); i++){
+
+        int isinmem = -1;
+        
+
+        for(int k = 0; k < memsize; k++){//Percorre a memória
+
+            if(memory[k] == requests[i])//Se a página já está na memória
+                isinmem = k;
+
+        }
+
+
+        if(isinmem != -1){//Se a página já está na memória só atualiza sua idade
+            
+            for(int u = 0; u < memsize; u++)
+                age[u]++;
+
+            age[isinmem] = 0;
+            continue;
+        
+        }else{
+            int oldest = 0;
+            int oldestIndex;
+
+            for(int k = 0; k < memsize; k++){//Encontra o elemento que foi acessado há mais tempo
+                if(oldest < age[k]){
+                    oldest = age[k];
+                    oldestIndex = k;
+                }
+            }
+
+            memory[oldestIndex] = requests[i];
+
+            //Atualiza a idade do elemento adicionado
+            age[oldestIndex] = 0;
+
+            npagelacks++;
+
+            for(int u = 0; u < memsize; u++)
+                age[u]++;
+
+            std::cout << "\nmemory: ";
+
+            for(int w = 0; w < memsize; w++)
+                std::cout << "\n" << memory[w];
+
+        }
+    }
+
+}

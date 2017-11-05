@@ -36,13 +36,15 @@ int main(){
     //for(int i = 0; i < requests.size(); i++)
       //  std::cout << "\n" << requests[i];
 
-    swapper fifo, otm;
+    swapper fifo, otm, lru;
 
     fifo.FIFO(requests, memsize);
     otm.OTM(requests, memsize);
+    lru.LRU(requests, memsize);
 
     std::cout << "\nFIFO: "<<fifo.npagelacks;
-    std::cout << "\nOTM: "<<otm.npagelacks<<"\n";
+    std::cout << "\nOTM: "<<otm.npagelacks;
+    std::cout << "\nLRU: " << lru.npagelacks << "\n";
 
 
     return 0;
