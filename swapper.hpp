@@ -2,8 +2,9 @@
 #define SWAPPER_HPP
 
 #include <vector>
-#include <string.h>
+#include <cstring>
 #include <iostream>
+#include <limits.h>
 
 class swapper{
 
